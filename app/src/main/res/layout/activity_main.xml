@@ -18,7 +18,7 @@
             android:id="@+id/contenido_principal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/barra_inferior"/>
+            android:layout_above="@+id/barraInferior"/>
 
         <fragment
             android:id="@+id/barra_superior"
@@ -27,11 +27,12 @@
             class="co.edu.eam.unilocal.fragmentos.MenuPrincipalFragment" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/barra_inferior"
+            android:id="@+id/barraInferior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            temIconTint="@color/verde_oscuro_2"
+            android:background="@drawable/selector_bottom_nav_item"
+            app:itemIconTint="@color/verde_oscuro_2"
             app:itemTextColor="@android:color/black"
             app:menu="@menu/barra_inferior" />
 

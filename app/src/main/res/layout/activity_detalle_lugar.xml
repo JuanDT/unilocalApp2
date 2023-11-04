@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/crema"
+    android:backgroundTint="@color/blanco"
     tools:context=".actividades.DetalleLugarActivity">
 
     <ImageView
@@ -18,6 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+        android:background="@color/blanco"
+        app:tabTextColor="@color/verde"
         app:tabIndicatorFullWidth="false"
         app:tabMode="fixed" />
 

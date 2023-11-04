@@ -18,6 +18,8 @@ class RegistroActivity : AppCompatActivity() {
 
         binding = ActivityRegistroBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
         binding.btnRegistro.setOnClickListener { registrarUsuario() }
     }
 

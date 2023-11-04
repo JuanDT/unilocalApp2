@@ -4,6 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/crema"
+
     tools:context=".fragmentos.MisLugaresFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -19,6 +21,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/ic_add"
+        app:backgroundTint="@color/verde_botones"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />
 

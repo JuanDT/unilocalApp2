@@ -3,19 +3,22 @@
 
     <!-- Textos son de el layout del main -->
     <string name="txt_busqueda">Buscar lugares</string>
-    <string name="txt_btn_registro">Ir a registro</string>
+    <string name="txt_registrarse">Registrarse</string>
     <string name="txt_btn_login">Ir a login</string>
+    <string name="txt_olvidoContraseña">Olvidé mi contraseña</string>
 
     <!-- Textos son de el layout del login -->
     <string name="txt_email">Escriba su correo</string>
     <string name="txt_password">Escriba su contraseña</string>
     <string name="txt_login">Iniciar sesión</string>
     <string name="txt_registro">Registrarse</string>
+    <string name="txt_copyrigth">©Unilocal Todos los derechos reservados</string>
 
     <!-- Textos del registro -->
     <string name="txt_nombre">Escriba su nombre</string>
     <string name="txt_nickname">Escriba su nickname</string>
     <string name="usuario_creado">Usuario registrado correctamente</string>
+    <string name="txt_continuar_google">Continuar con Google</string>
 
     <!-- Textos de crear lugar -->
     <string name="txt_nombre_lugar">Nombre del lugar</string>
@@ -38,7 +41,7 @@
     <string name="datos_incorrectos">Los datos son incorrectos</string>
 
     <!-- Textos del menú inferior -->
-    <string name="inicio">Inicio</string>
+    <string name="mapa">Mapa</string>
     <string name="mis_lugares">Comunidad</string>
     <string name="favoritos">Favoritos</string>
 
@@ -67,6 +70,14 @@
     <string name="perfil">Perfil</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="mas_opciones">Más opciones</string>
+
+    <!-- textos usuario-->
+    <string name="imagen_de_perfil">Foto de perfil</string>
+    <string name="nombre_usuario">Nombre usuario</string>
+    <string name="nickname">nickname</string>
+    <string name="correo_electronico">Correo</string>
+    <string name="contraseña">contraseña</string>
+    <string name="editar_perfil">Editar perfil</string>
 
     <!-- Textos navigation view -->
     <string name="abrir">Abrir</string>

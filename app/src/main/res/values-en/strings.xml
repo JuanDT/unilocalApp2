@@ -3,19 +3,24 @@
 
     <!-- Textos son de el layout del main -->
     <string name="txt_busqueda">Search places</string>
-    <string name="txt_btn_registro">Go to register</string>
+    <string name="txt_registrarse">Sign up</string>
     <string name="txt_btn_login">Go to login</string>
+    <string name="txt_olvidoContraseña">Forgot password?</string>
+
 
     <!-- Textos son de el layout del login -->
     <string name="txt_email">Type your email</string>
     <string name="txt_password">Type your password</string>
     <string name="txt_login">Login</string>
     <string name="txt_registro">Register now</string>
+    <string name="txt_copyrigth">©Unilocal All rights reserved</string>
 
     <!-- Textos del registro -->
     <string name="txt_nombre">Type your name</string>
     <string name="txt_nickname">Type your nickname</string>
     <string name="usuario_creado">Usuario registrado correctamente</string>
+    <string name="txt_continuar_google">Continue with Google</string>
+
 
     <!-- Textos de crear lugar -->
     <string name="txt_nombre_lugar">Nombre del lugar</string>
@@ -38,8 +43,8 @@
     <string name="datos_incorrectos">Los datos son incorrectos</string>
 
     <!-- Textos del menú inferior -->
-    <string name="inicio">Home</string>
-    <string name="mis_lugares">My places</string>
+    <string name="mapa">Map</string>
+    <string name="mis_lugares">Comunity</string>
     <string name="favoritos">Favorites</string>
 
     <!-- Textos del admin -->
@@ -67,6 +72,14 @@
     <string name="perfil">Perfil</string>
     <string name="cerrar_sesion">Cerrar sesión</string>
     <string name="mas_opciones">Más opciones</string>
+
+    <!-- textos usuario-->
+    <string name="imagen_de_perfil">Profile picture</string>
+    <string name="nombre_usuario">Username</string>
+    <string name="nickname">nickname</string>
+    <string name="correo_electronico">Email</string>
+    <string name="contraseña">Password</string>
+    <string name="editar_perfil">Edit profile</string>
 
     <!-- Textos navigation view -->
     <string name="abrir">Open</string>

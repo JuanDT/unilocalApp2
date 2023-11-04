@@ -28,6 +28,8 @@ class ModeradorActivity : AppCompatActivity() {
 
         binding = ActivityModeradorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         listaLugares = Lugares.listarPorEstado(EstadoLugar.SIN_REVISAR)
 

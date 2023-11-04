@@ -13,6 +13,8 @@ class AdministradorActivity : AppCompatActivity() {
 
         binding = ActivityAdministradorBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
     }
 }

@@ -19,6 +19,8 @@ class ResultadoBusquedaActivity : AppCompatActivity() {
 
         binding = ActivityResultadoBusquedaBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         textoBusqueda = intent.extras!!.getString("texto", "")
         listaLugares = ArrayList()

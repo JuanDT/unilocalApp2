@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blanco"
     tools:context=".fragmentos.detallelugar.InfoLugarFragment">
 
     <LinearLayout
@@ -58,11 +59,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/font_awesome_6_free_regular_400"
-                android:textColor="@color/vinotinto"
+                android:textColor="@color/verde_oscuro_2"
                 android:padding="0dp"
                 android:textSize="22sp"
                 android:layout_alignParentEnd="true"
-                android:text="\uf004" />
+                android:text="\uf02e" />
 
         </RelativeLayout>
 

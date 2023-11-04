@@ -30,6 +30,8 @@ class CrearLugarActivity : AppCompatActivity(){
 
         binding = ActivityCrearLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         lugar = Lugar()
 

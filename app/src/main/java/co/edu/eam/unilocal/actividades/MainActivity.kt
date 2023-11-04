@@ -10,6 +10,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import co.edu.eam.unilocal.R
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         sh = getSharedPreferences("sesion", Context.MODE_PRIVATE)
         val codigoUsuario = sh.getInt("codigo_usuario", 0)
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
                     binding.layoutContent.translationX = slideX
                 }
             }
+
 
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
@@ -107,6 +112,20 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         }
 
     }
+    private fun confirmLogout() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirmar Cierre de Sesión")
+        builder.setMessage("¿Estás seguro de que deseas cerrar sesión?")
+        builder.setPositiveButton("Sí") { dialog, which ->
+           cerrarSesion()
+        }
+        builder.setNegativeButton("Cancelar") { dialog, which ->
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
     fun cerrarSesion(){
         val spe = sh.edit()
@@ -129,7 +148,7 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
             R.id.menu_lugares_rechazados -> irLugaresRechazados()
             R.id.menu_perfil -> irPerfil()
             R.id.menu_cambiar_idioma -> cambiarIdioma()
-            R.id.menu_cerrar_sesion -> cerrarSesion()
+            R.id.menu_cerrar_sesion -> confirmLogout()
         }
 
         item.isChecked = true

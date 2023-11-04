@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             setContentView(binding.root)
 
             binding.btnLogin.setOnClickListener { login() }
-            binding.btnRegistro.setOnClickListener { irRegistro() }
+            binding.textViewRegister.setOnClickListener { irRegistro() }
         }
 
     }
@@ -51,8 +51,8 @@ class LoginActivity : AppCompatActivity() {
 
     fun login(){
 
-        val correo = binding.emailUsuario.text
-        var password = binding.passwordUsuario.text
+        val correo = binding.editTextEmail.text
+        var password = binding.editTextPassword.text
 
         if( correo.isEmpty() ){
             binding.emailLayout.isErrorEnabled = true
@@ -62,9 +62,9 @@ class LoginActivity : AppCompatActivity() {
         }
 
         if( password.isEmpty() ){
-            binding.passLayout.error = getString(R.string.es_obligatorio)
+            binding.passwordLayout.error = getString(R.string.es_obligatorio)
         }else{
-            binding.passLayout.error = null
+            binding.passwordLayout.error = null
         }
 
         if( correo.isNotEmpty() && password.isNotEmpty() ){

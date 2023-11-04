@@ -64,7 +64,7 @@ class InfoLugarFragment : Fragment() {
 
             if(esFavorito){
                 binding.btnFavorito.typeface = typefaceSolid
-                binding.btnFavorito.text = '\uf004'.toString()
+                binding.btnFavorito.text = '\uf005'.toString()
             }
 
         }

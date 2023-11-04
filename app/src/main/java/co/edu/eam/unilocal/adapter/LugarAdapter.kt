@@ -54,10 +54,10 @@ class LugarAdapter(private var lista:ArrayList<Lugar>): RecyclerView.Adapter<Lug
             val estaAbierto = lugar.estaAbierto()
 
             if(estaAbierto){
-                view.estadoLugar.setTextColor( ContextCompat.getColor(itemView.context, R.color.green ) )
+                view.estadoLugar.setTextColor( ContextCompat.getColor(itemView.context, R.color.verde_oscuro ) )
                 view.horarioLugar.text = "Cierra a las ${lugar.obtenerHoraCierre()}"
             }else{
-                view.estadoLugar.setTextColor( ContextCompat.getColor(itemView.context, R.color.red ) )
+                view.estadoLugar.setTextColor( ContextCompat.getColor(itemView.context, R.color.rojo ) )
                 view.horarioLugar.text = "Abre el ${lugar.obtenerHoraApertura()}"
             }
 

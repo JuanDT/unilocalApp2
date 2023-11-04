@@ -17,6 +17,8 @@ class DetalleLugarActivity : AppCompatActivity() {
 
         binding = ActivityDetalleLugarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+
 
         val sh = getSharedPreferences("sesion", Context.MODE_PRIVATE)
         val codigoUsuario = sh.getInt("codigo_usuario", 0)
