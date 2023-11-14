@@ -1,6 +1,7 @@
 package co.edu.eam.unilocal.fragmentos.detallelugar
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,18 +12,19 @@ import androidx.core.view.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.eam.unilocal.R
 import co.edu.eam.unilocal.adapter.ComentarioAdapter
-import co.edu.eam.unilocal.bd.Comentarios
 import co.edu.eam.unilocal.databinding.FragmentComentariosLugarBinding
 import co.edu.eam.unilocal.modelo.Comentario
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class ComentariosLugarFragment : Fragment() {
 
     lateinit var binding:FragmentComentariosLugarBinding
-    var lista:ArrayList<Comentario> = ArrayList()
-    private var codigoLugar:Int = 0
+    lateinit var lista:ArrayList<Comentario>
+    private var codigoLugar:String = ""
     private lateinit var adapter: ComentarioAdapter
-    private var codigoUsuario:Int = 0
     private var colorPorDefecto: Int = 0
     private var estrellas = 0
 
@@ -30,8 +32,7 @@ class ComentariosLugarFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         if(arguments != null){
-            codigoLugar = requireArguments().getInt("id_lugar")
-            codigoUsuario = requireArguments().getInt("id_usuario")
+            codigoLugar = requireArguments().getString("id_lugar", "")
         }
 
     }
@@ -45,14 +46,12 @@ class ComentariosLugarFragment : Fragment() {
 
         colorPorDefecto = binding.estrellas.e1.textColors.defaultColor
 
-        lista = Comentarios.listar(codigoLugar)
+        lista = ArrayList()
         adapter = ComentarioAdapter(lista)
         binding.listaComentarios.adapter = adapter
         binding.listaComentarios.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        if(lista.isEmpty()){
-            binding.txtSinComentarios.visibility = View.VISIBLE
-        }
+        llenarComentarios()
 
         binding.comentarLugar.setOnClickListener { hacerComentario() }
 
@@ -63,22 +62,107 @@ class ComentariosLugarFragment : Fragment() {
         return binding.root
     }
 
+    fun llenarComentarios(){
+        Firebase.firestore
+            .collection("lugares")
+            .document(codigoLugar)
+            .collection("comentarios")
+            .get()
+            .addOnSuccessListener {
+
+                if(it.isEmpty){
+                    binding.txtSinComentarios.visibility = View.VISIBLE
+                }else {
+
+                    for (doc in it) {
+                        val comentario = doc.toObject(Comentario::class.java)
+                        if (comentario != null) {
+                            comentario.key = doc.id
+                            lista.add(comentario)
+                            adapter.notifyItemInserted(lista.size - 1)
+                        }
+                    }
+
+                }
+
+            }
+            .addOnFailureListener {
+                Log.e("DETALLE_LUGAR", "${it.message}")
+            }
+    }
+
     fun hacerComentario(){
 
         val texto = binding.mensajeComentario.text.toString()
 
-        if( texto.isNotEmpty() && estrellas > 0){
-            val comentario = Comentarios.crear( Comentario(texto, codigoUsuario, codigoLugar, estrellas) )
+        if (texto.isNotEmpty() && estrellas > 0) {
+            val user = FirebaseAuth.getInstance().currentUser
 
-            limpiarFormulario()
-            Snackbar.make(binding.root, getString(R.string.comentario_realizado), Snackbar.LENGTH_LONG ).show()
+            if (user != null) {
+                val comentario = Comentario(texto, user.uid, estrellas)
 
-            lista.add(comentario)
-            adapter.notifyItemInserted(lista.size-1)
+                val lugaresCollection = Firebase.firestore.collection("lugares").document(codigoLugar)
+                val comentariosCollection = lugaresCollection.collection("comentarios")
 
-        }else{
-            Snackbar.make(binding.root, getString(R.string.comentario_error), Snackbar.LENGTH_LONG ).show()
+                // Verificar si ya hay un comentario del usuario para este lugar
+                comentariosCollection.whereEqualTo("idUsuario", user.uid)
+                    .get()
+                    .addOnSuccessListener { comentariosDocumentSnapshot ->
+                        if (!comentariosDocumentSnapshot.isEmpty) {
+                            val comentarioExistente = comentariosDocumentSnapshot.documents[0]
+                            comentariosCollection.document(comentarioExistente.id)
+                                .set(comentario)
+                                .addOnSuccessListener {
+                                    Snackbar.make(
+                                        binding.root,
+                                        getString(R.string.comentario_actualizado),
+                                        Snackbar.LENGTH_LONG
+
+                                    ).show()
+                                    limpiarFormulario()
+                                    lista.clear()
+                                    llenarComentarios()
+                                    adapter.notifyItemInserted(lista.size - 1)
+                                    adapter = ComentarioAdapter(lista)
+                                    binding.listaComentarios.adapter = adapter
+                                    binding.listaComentarios.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+                                }
+                                .addOnFailureListener {
+                                    Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                                }
+                        } else {
+                            // No existe un comentario del usuario, agrega uno nuevo
+                            comentariosCollection.add(comentario)
+                                .addOnSuccessListener {
+                                    binding.txtSinComentarios.visibility = View.GONE
+                                    limpiarFormulario()
+                                    Snackbar.make(
+                                        binding.root,
+                                        getString(R.string.comentario_realizado),
+                                        Snackbar.LENGTH_LONG
+                                    ).show()
+
+                                    lista.add(comentario)
+                                    adapter.notifyItemInserted(lista.size - 1)
+                                    adapter = ComentarioAdapter(lista)
+                                    binding.listaComentarios.adapter = adapter
+                                    binding.listaComentarios.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+                                }
+                                .addOnFailureListener {
+                                    Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                                }
+                        }
+                    }
+                    .addOnFailureListener {
+                        Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                    }
+            }
+        } else {
+            Snackbar.make(binding.root, getString(R.string.comentario_error), Snackbar.LENGTH_LONG).show()
         }
+
 
     }
 
@@ -104,11 +188,10 @@ class ComentariosLugarFragment : Fragment() {
 
     companion object{
 
-        fun newInstance(codigoLugar:Int, codigoUsuario:Int): ComentariosLugarFragment {
+        fun newInstance(codigoLugar:String): ComentariosLugarFragment {
 
             val args = Bundle()
-            args.putInt("id_lugar", codigoLugar)
-            args.putInt("id_usuario", codigoUsuario)
+            args.putString("id_lugar", codigoLugar)
 
             val fragmento = ComentariosLugarFragment()
             fragmento.arguments = args

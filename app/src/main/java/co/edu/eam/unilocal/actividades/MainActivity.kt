@@ -3,7 +3,7 @@ package co.edu.eam.unilocal.actividades
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
-import android.content.SharedPreferences
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,17 +11,20 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import co.edu.eam.unilocal.R
-import co.edu.eam.unilocal.bd.Usuarios
 import co.edu.eam.unilocal.databinding.ActivityMainBinding
 import co.edu.eam.unilocal.fragmentos.FavoritosFragment
 import co.edu.eam.unilocal.fragmentos.InicioFragment
 import co.edu.eam.unilocal.fragmentos.MisLugaresFragment
+import co.edu.eam.unilocal.modelo.Usuario
+import co.edu.eam.unilocal.utils.EstadoConexion
 import co.edu.eam.unilocal.utils.Idioma
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
 
@@ -29,7 +32,8 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
     private var MENU_INICIO = "inicio"
     private var MENU_MIS_LUGARES = "mis_lugares"
     private var MENU_FAVORITOS = "favoritos"
-    private lateinit var sh:SharedPreferences
+    //private lateinit var db: UnilocalDbHelper
+    var estadoConexion: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,15 +43,24 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         supportActionBar?.hide()
 
 
-        sh = getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        val codigoUsuario = sh.getInt("codigo_usuario", 0)
+        comprobarConexionInternet()
 
-        if( codigoUsuario != 0 ){
-            val usuario = Usuarios.obtener(codigoUsuario)
-            val encabezado = binding.navView.getHeaderView(0)
 
-            encabezado.findViewById<TextView>(R.id.enc_nombre_usuario).text = usuario!!.nombre
-            encabezado.findViewById<TextView>(R.id.enc_correo_usuario).text = usuario.correo
+        val user = FirebaseAuth.getInstance().currentUser
+
+        if( user!= null) {
+
+            Firebase.firestore
+                .collection("usuarios")
+                .document( user.uid)
+                .get()
+                .addOnSuccessListener { u ->
+                    val encabezado = binding.navView.getHeaderView(0)
+                    encabezado.findViewById<TextView>(R.id.enc_nombre_usuario).text = u.toObject(
+                        Usuario::class.java)?.nombre
+                    encabezado.findViewById<TextView>(R.id.enc_correo_usuario).text = user.email
+                }
+
         }
 
         reemplazarFragmento(1, MENU_INICIO)
@@ -71,7 +84,6 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
                     binding.layoutContent.translationX = slideX
                 }
             }
-
 
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
 
@@ -112,12 +124,13 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         }
 
     }
+
     private fun confirmLogout() {
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Confirmar Cierre de Sesión")
         builder.setMessage("¿Estás seguro de que deseas cerrar sesión?")
         builder.setPositiveButton("Sí") { dialog, which ->
-           cerrarSesion()
+            cerrarSesion()
         }
         builder.setNegativeButton("Cancelar") { dialog, which ->
         }
@@ -126,11 +139,10 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
         dialog.show()
     }
 
-
     fun cerrarSesion(){
-        val spe = sh.edit()
-        spe.clear()
-        spe.commit()
+        FirebaseAuth.getInstance().signOut()
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity( intent )
         finish()
     }
 
@@ -139,7 +151,10 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
     }
 
     fun irPerfil(){
-        //TODO falta
+
+        val intent = Intent(this, PerfilActivity2::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity( intent )
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -173,6 +188,15 @@ class MainActivity : AppCompatActivity(), OnNavigationItemSelectedListener {
     override fun attachBaseContext(newBase: Context?) {
         val localeUpdatedContext: ContextWrapper? = Idioma.cambiarIdioma(newBase!!)
         super.attachBaseContext(localeUpdatedContext)
+    }
+
+    fun comprobarConexionInternet() {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        connectivityManager.registerDefaultNetworkCallback(EstadoConexion(::comprobarConexion))
+    }
+
+    fun comprobarConexion(estado:Boolean){
+        estadoConexion = estado
     }
 
 

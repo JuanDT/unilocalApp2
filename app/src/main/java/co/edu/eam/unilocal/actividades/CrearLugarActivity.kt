@@ -18,6 +18,8 @@ import co.edu.eam.unilocal.fragmentos.crearlugar.MapaCrearLugarFragment
 import co.edu.eam.unilocal.modelo.EstadoLugar
 import co.edu.eam.unilocal.modelo.Lugar
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class CrearLugarActivity : AppCompatActivity(){
 
@@ -35,10 +37,7 @@ class CrearLugarActivity : AppCompatActivity(){
 
         lugar = Lugar()
 
-        val sh = getSharedPreferences("sesion", Context.MODE_PRIVATE)
-        val codigoUsuario = sh.getInt("codigo_usuario", 0)
-
-        binding.itemsForm.adapter = CrearLugarAdapter(this, codigoUsuario)
+        binding.itemsForm.adapter = CrearLugarAdapter(this)
         binding.itemsForm.isUserInputEnabled = false
 
         binding.btnSgte.setOnClickListener { pasarSiguienteFormulario() }
@@ -82,12 +81,22 @@ class CrearLugarActivity : AppCompatActivity(){
             }else{
                 lugar!!.posicion = posicion
 
-                Lugares.crear(lugar!!)
-                Snackbar.make(binding.root, getString(R.string.lugar_creado), Snackbar.LENGTH_LONG).show()
+                Firebase.firestore
+                    .collection("lugares")
+                    .add( lugar!! )
+                    .addOnSuccessListener {
+                        Snackbar.make(binding.root, getString(R.string.lugar_creado), Snackbar.LENGTH_LONG).show()
 
-                Handler(Looper.getMainLooper()).postDelayed({
-                    finish()
-                }, 4000)
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            finish()
+                        }, 3000)
+
+                    }
+                    .addOnFailureListener{
+                        Snackbar.make(binding.root, "${it.message}", Snackbar.LENGTH_LONG).show()
+                    }
+
+
             }
 
         }

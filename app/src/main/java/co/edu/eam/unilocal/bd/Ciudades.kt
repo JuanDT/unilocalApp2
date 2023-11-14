@@ -1,5 +1,6 @@
 package co.edu.eam.unilocal.bd
 
+import co.edu.eam.unilocal.modelo.Categoria
 import co.edu.eam.unilocal.modelo.Ciudad
 
 object Ciudades {
@@ -7,11 +8,12 @@ object Ciudades {
     private val lista:ArrayList<Ciudad> = ArrayList()
 
     init {
-        lista.add( Ciudad(1, "Armenia") )
-        lista.add( Ciudad(2, "Salento") )
-        lista.add( Ciudad(3, "Pereira") )
-        lista.add( Ciudad(4, "Calarcá") )
-        lista.add( Ciudad(5, "Manizales") )
+        lista.add(Ciudad(1,"Armenia"))
+        lista.add(Ciudad(2,"Salento"))
+        lista.add(Ciudad(3,"Pereira"))
+        lista.add(Ciudad(4,"Calarcá"))
+        lista.add(Ciudad(5,"manizales"))
+
     }
 
     fun listar():ArrayList<Ciudad>{
@@ -19,7 +21,6 @@ object Ciudades {
     }
 
     fun obtener(id:Int): Ciudad?{
-        return lista.firstOrNull { c -> c.id == id }
+        return lista.firstOrNull{c -> c.id == id}
     }
-
 }

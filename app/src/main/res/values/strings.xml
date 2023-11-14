@@ -59,6 +59,8 @@
     <string name="comentario_error">Debe escribir el comentario y seleccionar las estrellas</string>
     <string name="abierto">Abierto</string>
     <string name="cerrado">Cerrado</string>
+    <string name="comentario_actualizado">Comentario actualizado</string>
+
 
     <!-- Textos moderador -->
     <string name="deshacer">Deshacer</string>
@@ -78,6 +80,8 @@
     <string name="correo_electronico">Correo</string>
     <string name="contraseña">contraseña</string>
     <string name="editar_perfil">Editar perfil</string>
+    <string name="guardar">Guardar cambios</string>
+
 
     <!-- Textos navigation view -->
     <string name="abrir">Abrir</string>
@@ -94,6 +98,14 @@
     <!-- Validaciones -->
     <string name="sin_registros">Aún no hay registros</string>
     <string name="todos_obligatorios">Todos los campos son obligatorios</string>
+    <string name="confirmar_cambios">¿Desea guardar los cambios?</string>
+
+    <!-- Perfil -->
+    <string name="aportes">Aportes</string>
+    <string name="lugares_guardados">Guardados</string>
+    <string name="calificacion_promedio">Calificación romedio</string>
+
+
 
 
 </resources>

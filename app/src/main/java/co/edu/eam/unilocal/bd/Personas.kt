@@ -1,9 +1,7 @@
 package co.edu.eam.unilocal.bd
 
-import co.edu.eam.unilocal.modelo.Persona
-
 object Personas {
-
+/*
     fun login(correo:String, password:String): Persona?{
         var respuesta:Persona?
 
@@ -19,5 +17,5 @@ object Personas {
 
         return respuesta
     }
-
+*/
 }

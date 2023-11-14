@@ -139,7 +139,6 @@
             android:id="@+id/img_lugar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/gray"
             android:scaleType="centerCrop"
             android:layout_weight="30" />
 

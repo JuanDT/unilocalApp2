@@ -61,6 +61,8 @@
     <string name="comentario_error">Debe escribir el comentario y seleccionar las estrellas</string>
     <string name="abierto">Open</string>
     <string name="cerrado">Close</string>
+    <string name="comentario_actualizado">Updated comment</string>
+
 
     <!-- Textos moderador -->
     <string name="deshacer">Undo</string>
@@ -80,6 +82,8 @@
     <string name="correo_electronico">Email</string>
     <string name="contraseña">Password</string>
     <string name="editar_perfil">Edit profile</string>
+    <string name="guardar">Save changes</string>
+
 
     <!-- Textos navigation view -->
     <string name="abrir">Open</string>
@@ -96,5 +100,14 @@
     <!-- Validaciones -->
     <string name="sin_registros">Aún no hay registros</string>
     <string name="todos_obligatorios">Todos los campos son obligatorios</string>
+    <string name="confirmar_cambios">Want to save your changes?</string>
+
+
+    <!-- Perfil -->
+    <string name="aportes">Contributions</string>
+    <string name="lugares_guardados">Saved</string>
+    <string name="calificacion_promedio">Average star rating</string>
+
+
 
 </resources>

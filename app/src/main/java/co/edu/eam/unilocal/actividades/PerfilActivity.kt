@@ -6,34 +6,59 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
 import co.edu.eam.unilocal.R
+import co.edu.eam.unilocal.adapter.LugarAdapter
+import co.edu.eam.unilocal.databinding.ActivityLoginBinding
+import co.edu.eam.unilocal.databinding.ActivityPerfilBinding
+import co.edu.eam.unilocal.modelo.EstadoLugar
+import co.edu.eam.unilocal.modelo.Lugar
+import co.edu.eam.unilocal.modelo.Usuario
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class PerfilActivity : AppCompatActivity() {
+
+    lateinit var binding:ActivityPerfilBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_perfil)
+        binding = ActivityPerfilBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         supportActionBar?.hide()
 
+        val user = FirebaseAuth.getInstance().currentUser
+        val db = FirebaseFirestore.getInstance()
 
-        val sharedPreferences = getSharedPreferences("sesion", Context.MODE_PRIVATE)
 
-        val nombreUsuario = sharedPreferences.getString("nombre_usuario", "")
-        val nicknameUsuario = sharedPreferences.getString("nickname_usuario", "")
-        val correoUsuario = sharedPreferences.getString("correo_usuario", "")
+        if (user != null){
+            db.collection("usuarios")
+                .document(user.uid)
+                .get()
+                .addOnSuccessListener { l ->
 
-        val nombreTextView = findViewById<TextView>(R.id.nombreUsuario)
-        val nicknameTextView = findViewById<TextView>(R.id.nicknameUsuario)
-        val correoTextView = findViewById<TextView>(R.id.correoUsuario)
 
-        nombreTextView.text = nombreUsuario
-        nicknameTextView.text = nicknameUsuario
-        correoTextView.text = correoUsuario
+                    val usuario = l.toObject(Usuario::class.java)
+                    if (usuario != null) {
+                        usuario.key = l.id
+                        val nombreUsuario = usuario.nombre
+                        val nicknameUsuario = usuario.nickname
+                        val correoUsuario = user.email
+                        binding.nombreUsuario.setText(nombreUsuario).toString()
+                        binding.nicknameUsuario.setText(nicknameUsuario).toString()
+                        binding.correoUsuario.setText(correoUsuario).toString()
+                    }
 
-        val editarPerfilButton = findViewById<View>(R.id.botonEditarPerfil)
+                }
 
-        editarPerfilButton.setOnClickListener {
-            val intent = Intent(this, EditarPerfilActivity::class.java)
-            startActivity(intent)
+                }
         }
+
+
+
+
+
+
+
+
     }
-}

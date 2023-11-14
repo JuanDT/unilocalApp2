@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/verde_fondo"
     tools:context=".actividades.RegistroActivity">
 
     <ImageView
@@ -16,62 +17,93 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nombre_layout"
-        style="@style/til_form">
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/gris"
+        app:boxStrokeColor="@color/purple_200"
+        android:hint="@string/txt_nombre"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">>
 
         <EditText
             android:id="@+id/nombre_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/txt_nombre"/>
-
+            android:textColor="@color/gris"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nickname_layout"
-        style="@style/til_form">
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/gris"
+        app:boxStrokeColor="@color/purple_200"
+        android:hint="@string/txt_nickname"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">>
 
         <EditText
             android:id="@+id/nickname_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/txt_nickname"/>
-
+            android:textColor="@color/gris"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email_layout"
-        style="@style/til_form">
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/gris"
+        app:boxStrokeColor="@color/purple_200"
+        android:hint="@string/txt_email"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">>
 
         <EditText
             android:id="@+id/email_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/txt_email"
-            android:inputType="textEmailAddress"/>
-
+            android:textColor="@color/gris"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_layout"
-        style="@style/til_form">
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/gris"
+        app:boxStrokeColor="@color/purple_200"
+        android:hint="@string/txt_password"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp">>
 
         <EditText
             android:id="@+id/pass_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/fondo_forms"
-            android:hint="@string/txt_password"
-            android:inputType="textPassword"/>
-
+            android:textColor="@color/gris"
+            android:backgroundTint="@android:color/transparent"
+            android:hint="" />
     </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/btn_registro"
         android:layout_width="150dp"
         android:layout_height="60dp"
+        android:layout_marginTop="90dp"
+        android:textColor="@color/blanco"
+        android:backgroundTint="@color/verde_botones"
         android:text="@string/txt_registro" />
 
 </LinearLayout>

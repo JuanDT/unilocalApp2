@@ -26,6 +26,7 @@
         android:id="@+id/lista_horarios"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border_background"
         android:layout_marginStart="35dp"
         android:layout_marginEnd="35dp"
         android:orientation="vertical">

@@ -41,34 +41,15 @@
         android:inputType="text"
         android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/correo_electronico"
-        android:inputType="textEmailAddress"
-        android:backgroundTint="@color/gris"
-        android:textColorHint="@color/gris"
 
 
-        android:layout_marginBottom="16dp"/>
 
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/contraseña"
-        android:inputType="textPassword"
-        android:backgroundTint="@color/gris"
-        android:textColorHint="@color/gris"
-
-        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/botonActualizarPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/editar_perfil"
+        android:text="@string/guardar"
         android:textSize="18sp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"

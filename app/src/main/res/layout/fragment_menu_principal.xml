@@ -15,6 +15,7 @@
         android:layout_marginBottom="7dp"
         android:weightSum="100"
         android:elevation="4dp"
+
         android:background="@drawable/fondo_busqueda">
 
         <Button
@@ -35,8 +36,9 @@
             android:layout_weight="85"
             android:hint="@string/txt_busqueda"
             android:imeOptions="actionSearch"
+            android:textColor="@color/black"
             android:singleLine="true"
-            android:textColorHint="@color/black"
+            android:textColorHint="@color/gris"
             android:paddingStart="2dp"
             android:paddingEnd="15dp"
             android:textSize="16sp"
